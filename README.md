@@ -4,4 +4,4 @@
 > Q : `我想要MIT許可證，在哪裡?`
 - A : `MIT 許可證放在文件中。`
 > Q : `我想要訪問網站。`
-- A : `典籍`[這裡](https://maomy.ddns.net/)`即可訪問`
+- A : `點擊`[這裡](https://maomy.ddns.net/)`即可訪問`
