@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iFarm 網頁</title>
+    <!-- 引入 iFarm 框架 -->
+    <script src="https://cdn.jsdelivr.net/npm/ifarm"></script>
+</head>
+<body>
+    <h1>iFarm 網頁</h1>
+    
+    <div id="status"></div>
+
+    <script>
+        // 使用 iFarm 來獲取指定 URL 的內容
+        iFarm.fetch('http://owo.freeserver.tw:20365/status/maomy')
+            .then(response => response.json())
+            .then(data => {
+                // 將內容顯示在網頁上
+                document.getElementById('status').innerText = JSON.stringify(data);
+            })
+            .catch(error => {
+                // 如果出現錯誤，顯示錯誤信息
+                document.getElementById('status').innerText = '無法獲取數據：' + error.message;
+            });
+    </script>
+</body>
+</html>
