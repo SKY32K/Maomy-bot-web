@@ -159,7 +159,7 @@
         function checkHTTPStatus() {
             var httpStatusElement = document.getElementById('httpStatus');
             var httpStatusHistoryElement = document.getElementById('httpStatusHistory');
-            axios.get('https://maomy.ddns.net/status.json') // 替換成實際的 JSON 文件路徑
+            axios.get('https://maomy.ddns.net/data.json') // 替換成實際的 JSON 文件路徑
                 .then(function (response) {
                     var data = response.data;
                     if (data.http.online) {
@@ -196,7 +196,7 @@
         function checkHTTPSStatus() {
             var httpsStatusElement = document.getElementById('httpsStatus');
             var httpsStatusHistoryElement = document.getElementById('httpsStatusHistory');
-            axios.get('https://maomy.ddns.net/status.json') // 替換成實際的 JSON 文件路徑
+            axios.get('https://maomy.ddns.net/data.json') // 替換成實際的 JSON 文件路徑
                 .then(function (response) {
                     var data = response.data;
                     if (data.https.online) {
