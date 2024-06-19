@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="background.jpg" type="image/jpg" />
+    <meta name="description" content="Maomy Bot及時狀態">
+    <meta property="og:image" content="https://maomy.ddns.net/background.jpg">
+    <title>Maomy BOT 即時狀態</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        header {
+            background-color: #1e1e1e;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+        }
+        .invite-btn {
+            background-color: #00ccff;
+            color: #121212;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .invite-btn:hover {
+            background-color: #00aaff;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+        h1, h2, h3 {
+            color: #00ccff;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        footer {
+            background-color: #1e1e1e;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+        nav {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            color: #00ccff;
+            text-decoration: none;
+        }
+        a {
+            margin: 0 15px;
+            color: #00ccff;
+            text-decoration: none;
+        }
+        body::before {
+            content: "";
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            filter: blur(5px);
+        }
+        .status-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+        .status {
+            width: 300px;
+            padding: 20px;
+            background-color: #2e2e2e; /* 深色背景 */
+            color: #ffffff; /* 白色文字 */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+            animation: status-blink 1s infinite alternate; /* 科技感动画 */
+            text-align: left; /* 文字左对齐 */
+            margin-bottom: 20px;
+        }
+        @keyframes status-blink {
+            from { opacity: 1; }
+            to { opacity: 0.5; }
+        }
+        .online {
+            color: #00ff00; /* 绿色表示在线 */
+        }
+        .offline {
+            color: #ff0000; /* 红色表示离线 */
+        }
+        h1 {
+            margin-top: 40px; /* 留出一些空间 */
+            font-size: 36px; /* 标题字体大小 */
+        }
+        .offline-history {
+            display: none; /* 默认隐藏断线记录 */
+            color: #ff0000; /* 红色文字 */
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        .show-history .offline-history {
+            display: block; /* 断线时显示断线记录 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="https://lurl.cc/q6SWVc" class="invite-btn">邀請Bot</a>
+        <h1>Maomy BOT 網頁</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">首頁</a>
+        <a href="about.html">關於我們</a>
+        <a href="terms.html">服務條款</a>
+        <a href="disclaimer.html">免責協議</a>
+        <a href="privacy.html">隱私權政策</a>
+        <a href="http://maomy.zapto.org:20365">即時狀態</a>
+    </nav>
+    <div class="container">
+        <h1>Maomy Bot 專案即時狀態</h1>
+        <div class="status-container">
+            <div id="statusHTTP" class="status">
+                <div>Maomy Bot 控制面板: <span id="httpStatus" class="offline">讀取中...</span></div>
+                <div id="httpStatusHistory" class="offline-history">斷線紀錄: </div>
+            </div>
+        </div>
+        <div class="status-container">
+            <div id="statusHTTPS" class="status">
+                <div>MaomyBot官網 <span id="httpsStatus" class="offline">讀取中...</span></div>
+                <div id="httpsStatusHistory" class="offline-history">斷線紀錄: </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to check HTTP status using Axios and server-side JSON file
+        function checkHTTPStatus() {
+            var httpStatusElement = document.getElementById('httpStatus');
+            var httpStatusHistoryElement = document.getElementById('httpStatusHistory');
+            axios.get('https://maomy.ddns.net/status.json') // 替換成實際的 JSON 文件路徑
+                .then(function (response) {
+                    var data = response.data;
+                    if (data.http.online) {
+                        if (httpStatusElement.classList.contains('offline')) {
+                            httpStatusElement.classList.remove('offline');
+                            httpStatusElement.classList.add('online');
+                        }
+                        httpStatusElement.textContent = '線上'; // 使用繁體中文
+                        httpStatusHistoryElement.textContent = ''; // 清空断线记录
+                    } else {
+                        if (httpStatusElement.classList.contains('online')) {
+                            httpStatusElement.classList.remove('online');
+                            httpStatusElement.classList.add('offline');
+                        }
+                        httpStatusElement.textContent = '離線'; // 使用繁體中文
+                        var lastOfflineTime = new Date(data.http.lastOfflineTime).toLocaleString();
+                        httpStatusHistoryElement.textContent = '最后斷線時間：' + lastOfflineTime;
+                        httpStatusHistoryElement.parentNode.classList.add('show-history'); // 显示断线记录
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error fetching HTTP status:', error);
+                    if (httpStatusElement.classList.contains('online')) {
+                        httpStatusElement.classList.remove('online');
+                        httpStatusElement.classList.add('offline');
+                    }
+                    httpStatusElement.textContent = '離線'; // 使用繁體中文
+                    httpStatusHistoryElement.textContent = '無法獲取最后斷線時間'; // 显示获取失败信息
+                    httpStatusHistoryElement.parentNode.classList.add('show-history'); // 显示断线记录
+                });
+        }
+
+        // Function to check HTTPS status using Axios and server-side JSON file
+        function checkHTTPSStatus() {
+            var httpsStatusElement = document.getElementById('httpsStatus');
+            var httpsStatusHistoryElement = document.getElementById('httpsStatusHistory');
+            axios.get('https://maomy.ddns.net/status.json') // 替換成實際的 JSON 文件路徑
+                .then(function (response) {
+                    var data = response.data;
+                    if (data.https.online) {
+                        if (httpsStatusElement.classList.contains('offline')) {
+                            httpsStatusElement.classList.remove('offline');
+                            httpsStatusElement.classList.add('online');
+                        }
+                        httpsStatusElement.textContent = '線上'; // 使用繁體中文
+                        httpsStatusHistoryElement.textContent = ''; // 清空断线记录
+                    } else {
+                        if (httpsStatusElement.classList.contains('online')) {
+                            httpsStatusElement.classList.remove('online');
+                            httpsStatusElement.classList.add('offline');
+                        }
+                        httpsStatusElement.textContent = '離線'; // 使用繁體中文
+                        var lastOfflineTime = new Date(data.https.lastOfflineTime).toLocaleString();
+                        httpsStatusHistoryElement.textContent = '最后斷線時間：' + lastOfflineTime;
+                        httpsStatusHistoryElement.parentNode.classList.add('show-history'); // 显示断线记录
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error fetching HTTPS status:', error);
+                    if (httpsStatusElement.classList.contains('online')) {
+                        httpsStatusElement.classList.remove('online');
+                        httpsStatusElement.classList.add('offline');
+                    }
+                    httpsStatusElement.textContent = '離線'; // 使用繁體中文
+                    httpsStatusHistoryElement.textContent = '無法獲取最后斷線時間'; // 显示获取失败信息
+                    httpsStatusHistoryElement.parentNode.classList.add('show-history'); // 显示断线记录
+                });
+        }
+
+        // Periodically check the status
+        setInterval(function() {
+            checkHTTPStatus();
+            checkHTTPSStatus();
+        }, 5000); // Check status every 5 seconds (adjust as needed)
+
+        // Initial check on page load
+        checkHTTPStatus();
+        checkHTTPSStatus();
+    </script>
+</body>
+</html>

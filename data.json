@@ -1,0 +1,11 @@
+{
+    "http": {
+      "online": true,
+      "lastOfflineTime": "2024-06-19T12:00:00Z"
+    },
+    "https": {
+      "online": false,
+      "lastOfflineTime": "2024-06-18T18:30:00Z"
+    }
+  }
+  
