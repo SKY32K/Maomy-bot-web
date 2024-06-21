@@ -7,7 +7,6 @@
     <meta name="description" content="Maomy Bot及時狀態">
     <meta property="og:image" content="https://maomy.ddns.net/background.jpg">
     <title>Maomy BOT 即時狀態</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -133,53 +132,51 @@
         <h1>Maomy Bot 專案即時狀態</h1>
         <div class="status-container">
             <div id="statusHTTP" class="status">
-                <div>Maomy Bot 控制面板: <span id="httpStatus" class="offline">讀取中...</span></div>
+                <div>Maomy Bot 控制面板(開發中) : <span id="httpStatus" class="offline">讀取中...</span></div>
             </div>
             <div id="statusHTTPS" class="status">
-                <div>MaomyBot官網: <span id="httpsStatus" class="offline">讀取中...</span></div>
+                <div>MaomyBot官網 : <span id="httpsStatus" class="offline">讀取中...</span></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Function to check HTTP status using Axios and server-side JSON file
+        // Function to check HTTP status
         function checkHTTPStatus() {
             var httpStatusElement = document.getElementById('httpStatus');
-            axios.get('https://maomy.ddns.net/data.json') // 替換成實際的 JSON 文件路徑
+            fetch('http://owo.freeserver.tw:20227')
                 .then(function (response) {
-                    var data = response.data;
-                    if (data.http.online) {
-                        httpStatusElement.textContent = '線上'; // 使用繁體中文
+                    if (response.ok) {
+                        httpStatusElement.textContent = '線上';
                         httpStatusElement.className = 'online';
                     } else {
-                        httpStatusElement.textContent = '離線'; // 使用繁體中文
+                        httpStatusElement.textContent = '離線';
                         httpStatusElement.className = 'offline';
                     }
                 })
                 .catch(function (error) {
                     console.error('Error fetching HTTP status:', error);
-                    httpStatusElement.textContent = '離線'; // 使用繁體中文
+                    httpStatusElement.textContent = '離線';
                     httpStatusElement.className = 'offline';
                 });
         }
 
-        // Function to check HTTPS status using Axios and server-side JSON file
+        // Function to check HTTPS status
         function checkHTTPSStatus() {
             var httpsStatusElement = document.getElementById('httpsStatus');
-            axios.get('https://maomy.ddns.net/data.json') // 替換成實際的 JSON 文件路徑
+            fetch('https://maomy.ddns.net/')
                 .then(function (response) {
-                    var data = response.data;
-                    if (data.https.online) {
-                        httpsStatusElement.textContent = '線上'; // 使用繁體中文
+                    if (response.ok) {
+                        httpsStatusElement.textContent = '線上';
                         httpsStatusElement.className = 'online';
                     } else {
-                        httpsStatusElement.textContent = '離線'; // 使用繁體中文
+                        httpsStatusElement.textContent = '離線';
                         httpsStatusElement.className = 'offline';
                     }
                 })
                 .catch(function (error) {
                     console.error('Error fetching HTTPS status:', error);
-                    httpsStatusElement.textContent = '離線'; // 使用繁體中文
+                    httpsStatusElement.textContent = '離線';
                     httpsStatusElement.className = 'offline';
                 });
         }
