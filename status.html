@@ -144,7 +144,7 @@
         // Function to check HTTP status
         function checkHTTPStatus() {
             var httpStatusElement = document.getElementById('httpStatus');
-            fetch('http://owo.freeserver.tw:20227')
+            fetch('http://owo.freeserver.tw:20227/status')
                 .then(function (response) {
                     if (response.ok) {
                         httpStatusElement.textContent = '線上';
