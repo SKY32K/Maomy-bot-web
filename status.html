@@ -112,6 +112,10 @@
             margin-top: 40px; /* 留出一些空间 */
             font-size: 36px; /* 标题字体大小 */
         }
+        .refresh-timer {
+            margin-top: 20px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -138,6 +142,7 @@
                 <div>MaomyBot官網 : <span id="httpsStatus" class="offline">讀取中...</span></div>
             </div>
         </div>
+        <div id="refreshTimer" class="refresh-timer">頁面將在 <span id="countdown">300</span> 秒後重新整理。</div>
     </div>
 
     <script>
@@ -185,10 +190,17 @@
         checkHTTPStatus();
         checkHTTPSStatus();
 
-        // Reload the page every 5 minutes
-        setTimeout(function() {
-            location.reload();
-        }, 300000); // 300000 ms = 5 minutes
+        // Countdown timer for refresh
+        var timeleft = 300;
+        var countdownElement = document.getElementById('countdown');
+        var refreshTimer = setInterval(function(){
+            timeleft--;
+            countdownElement.textContent = timeleft;
+            if(timeleft <= 0) {
+                clearInterval(refreshTimer);
+                location.reload();
+            }
+        }, 1000); // 1000 ms = 1 second
     </script>
 </body>
 </html>
