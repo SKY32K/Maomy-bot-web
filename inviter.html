@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="5;url=https://discord.com/oauth2/authorize?client_id=1234058289747333171&permissions=8&integration_type=0&scope=bot">
-    <title>重新導向中</title>
+    <title>Redirecting...</title>
     <style>
         body {
             background-color: #121212;
@@ -14,16 +14,28 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column;
         }
         p {
             font-size: 1.2em;
+            margin: 0.5em;
         }
         a {
             color: #1e90ff;
         }
     </style>
+    <script type="text/javascript">
+        let countdown = 5;
+        function updateCountdown() {
+            if (countdown > 0) {
+                document.getElementById("countdown").innerText = countdown;
+                countdown--;
+            }
+        }
+        setInterval(updateCountdown, 1000);
+    </script>
 </head>
 <body>
-    <p>頁面將在5秒鐘後重新導向。如果沒有，請<a href="https://discord.com/oauth2/authorize?client_id=1234058289747333171&permissions=8&integration_type=0&scope=bot">點擊這裡</a>。</p>
+    <p>頁面將在 <span id="countdown">5</span> 秒鐘後重定向。如果沒有，請<a href="https://discord.com/oauth2/authorize?client_id=1234058289747333171&permissions=8&integration_type=0&scope=bot">點這</a>。</p>
 </body>
 </html>
