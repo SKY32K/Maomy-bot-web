@@ -3,8 +3,8 @@
 - 認證BOT的網頁&宣傳網頁
 ## Q&A
 > Q : `聽說控制面板上線了？！，我想看！`
-- A : `點擊`[這裡](https://maomy.wuaze.com/)`即可進入`
+- A : `點擊`[這裡](https://app.maomy.top/)`即可進入`
 > Q : `我想要訪問網站。`
-- A : `點擊`[這裡](https://maomy.com.mp/)`即可訪問`
+- A : `點擊`[這裡](https://maomy.top/)`即可訪問`
 > Q : `我想要MIT許可證，在哪裡?`
 - A : `MIT 許可證放在文件中。`
